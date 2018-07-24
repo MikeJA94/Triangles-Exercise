@@ -1,0 +1,102 @@
+﻿<h1>Triangles</h1>
+<p class="lead">Triangle location test</p>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class='Main'>
+            <h4> Get Coordinates </h4>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="RowValue">Row</label>
+                    <input type="text" class="form-control" id="RowValue" placeholder="Row Value" value=1>
+                </div>
+                <div class="form-group">
+                    <label for="ColumnValue">Column</label>
+                    <input type="text" class="form-control" id="ColumnValue" placeholder="Column Value" value=1>
+                </div>
+                <button type="button" class="btn btn-primary" id="getCoordBtn">Get Coordinates</button>
+            </form>
+
+            <h4> Get Coordinates Results </h4>
+            <code class='results'>
+                <pre>
+                </pre>
+            </code>
+            <h4>Get Row and Column Web Api Results</h4>
+            <code class='resultsFromRowCol'>
+                <pre>
+                </pre>
+            </code>
+        </div>
+        <br />
+
+        <h3> Triangles </h3>
+        <div class='triangles'>
+            <table>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // first build our triangle grid
+        var rowLabels = ["A", "B", "C", "D", "E", "F"];
+
+        var $triangleTable = $(".triangles table");
+        for (var row = 1; row <= 6; row++) {
+            var $row = $("<tr> </tr>");
+
+            for (var col = 1; col <= 6; col++) {
+                var tdVal = $row.find("td .triangle").length + 1;
+                var t1 = `${rowLabels[row - 1]}${tdVal + 1}`;
+                var t2 = `${rowLabels[row - 1]}${tdVal}`;
+                var $col = $("<td> </td>");
+                $col.append(`<div class="box"> 
+                    <div class = "triangle2 triangle"><div>${t1}</div></div> 
+                    <div class = "triangle1 triangle"><div>${t2}</div></div> 
+                    </div>`
+                );
+                $row.append($col);
+            }
+            $triangleTable.append($row);
+        }
+
+        $("#getCoordBtn").click(function (e) {
+            e.preventDefault();
+            var row = $("#RowValue").val();
+            var col = $("#ColumnValue").val();
+
+            // get coord of triangle based upon row and column
+            var url = `http://foxtwolabs.com/trianglesApp/api/GetTriangleCoordinates?row=${row}&col=${col}`;
+              $.get( url, function( result ) {
+                  console.log(result);
+                  $('.results pre').text(`Triangle coordinates: ${JSON.stringify(result, null, 2)}`);
+                  // make that triangle selected
+                  SelectTriangle(row, col);
+                  // make the call to Web api to return row , col from results of last call
+                  var url = `http://foxtwolabs.com/trianglesApp/api/GetTriangleRowColumn?V1x=${result.V1.xVal}&V1y=${result.V1.yVal}&V2x=${result.V2.xVal}&V2y=${result.V2.yVal}&V3x=${result.V3.xVal}&V3y=${result.V3.yVal}`;
+                  $.get(url, function (result) {
+                      $('.resultsFromRowCol pre').text(`Triangle Row and Column: ${JSON.stringify(result, null, 2)}`);
+                  });
+            });
+        });
+    });
+
+    function SelectTriangle(row, col) {
+        // clear selected
+        $(".triangle").removeClass("selected");
+
+        var realCol = Math.ceil(col / 2);
+        console.log('real Col', realCol);
+        var $row = $("tr:nth-child(" + row + ")");
+        var $col = $row.find("td:nth-child(" + realCol + ")");
+
+        var section = (col % 2 == 0) ? 1 : 2;
+        var $triangle = $col.find(".triangle:nth-of-type(" + section + ")");
+        $triangle.addClass("selected");
+    }
+
+</script>

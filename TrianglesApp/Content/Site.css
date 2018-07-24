@@ -1,0 +1,94 @@
+﻿body {
+    padding-top: 0px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+h4 {
+    margin-bottom: 0px;
+}
+/* triangles */
+label, input {
+    margin-right: 10px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+#getCoordBtn {
+    margin-top: 25px;
+}
+
+.results pre, .resultsFromRowCol pre {
+    height: 100px;
+    width: 400px;
+    overflow: scroll;
+    overflow-x: hidden;
+    border: 1px solid black;
+}
+
+.triangles {
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+}
+
+.triangle1, .triangle2 {
+    color: white;
+}
+
+.triangle2 {
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-right: 0px solid transparent;
+    border-top: 100px solid #5B9BD5;
+}
+
+.triangle2 div {
+        position: relative;
+        bottom: 80px;
+        right: 40px;
+}
+
+.triangle1 {
+    margin-top: -100px;
+    width: 0;
+    height: 0;
+    border-left: 0px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 100px solid #5B9BD5;
+}
+
+
+
+.triangle1 div {
+    position: relative;
+    top: 50px;
+    left: 20px;
+}
+
+.triangle1.selected {
+    font-weight: bold;
+    border-bottom: 100px solid green;
+}
+
+.triangle2.selected {
+    font-weight: bold;
+    border-top: 100px solid green;
+}
