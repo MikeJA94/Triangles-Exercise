@@ -1,6 +1,9 @@
 # Triangles-Exercise
 Triangles Application
 
+Live Online Application :
+http://foxtwolabs.com/trianglesApp
+
 Goals:
 Your sample should be developed as a C# Web Api endpoint with an optional JavaScript front end and
 should be posted to GitHub for review. Please provide your recruiter with the link for the source code. If
