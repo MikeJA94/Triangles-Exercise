@@ -3,6 +3,7 @@ Triangles Application
 
 Live Online Application :
 http://foxtwolabs.com/trianglesApp
+(Tested on Chrome and Edge Browsers only)
 
 Goals:
 Your sample should be developed as a C# Web Api endpoint with an optional JavaScript front end and
